@@ -9,49 +9,43 @@
 
     /* ── Tokens ── */
     :root[data-theme="dark"] {
-      --bg-a: #0d0d1a;
-      --bg-b: #16102b;
-      --bg-c: #0a1628;
-
+      --bg:            #1c1c1e;
       --glass-bg:      rgba(255, 255, 255, 0.055);
       --glass-border:  rgba(255, 255, 255, 0.13);
       --glass-inset:   rgba(255, 255, 255, 0.10);
       --glass-shadow:  rgba(0, 0, 0, 0.45);
       --glow:          rgba(255, 255, 255, 0.20);
 
-      --header-bg:     rgba(13, 13, 26, 0.75);
+      --header-bg:     rgba(28, 28, 30, 0.85);
       --header-border: rgba(255, 255, 255, 0.08);
 
-      --text:          #f0f0f5;
-      --text-sub:      #88888f;
+      --text:          #f5f5f7;
+      --text-sub:      #98989d;
       --accent:        #2997ff;
 
       --toggle-bg:     rgba(255, 255, 255, 0.09);
       --toggle-hover:  rgba(255, 255, 255, 0.16);
       --toggle-text:   rgba(255, 255, 255, 0.55);
 
-      --icon-blue:   rgba(41,  151, 255, 0.18);
-      --icon-green:  rgba(52,  199,  89, 0.18);
-      --icon-purple: rgba(175,  82, 222, 0.18);
-      --icon-orange: rgba(255, 149,   0, 0.18);
-      --icon-teal:   rgba(90,  200, 250, 0.18);
-      --icon-red:    rgba(255,  69,  58, 0.18);
-      --icon-yellow: rgba(255, 214,  10, 0.18);
+      --icon-blue:   #1a2a4a;
+      --icon-green:  #1a3028;
+      --icon-purple: #2a1a40;
+      --icon-orange: #3a2010;
+      --icon-teal:   #0f2e2e;
+      --icon-red:    #3a1010;
+      --icon-yellow: #2e2800;
     }
 
     :root[data-theme="light"] {
-      --bg-a: #dce8f8;
-      --bg-b: #ede8f8;
-      --bg-c: #dff0f8;
-
-      --glass-bg:      rgba(255, 255, 255, 0.52);
-      --glass-border:  rgba(255, 255, 255, 0.82);
+      --bg:            #f5f5f7;
+      --glass-bg:      rgba(255, 255, 255, 0.60);
+      --glass-border:  rgba(255, 255, 255, 0.85);
       --glass-inset:   rgba(255, 255, 255, 0.70);
-      --glass-shadow:  rgba(80,  80, 140, 0.12);
-      --glow:          rgba(255, 255, 255, 0.55);
+      --glass-shadow:  rgba(0, 0, 0, 0.08);
+      --glow:          rgba(255, 255, 255, 0.60);
 
-      --header-bg:     rgba(255, 255, 255, 0.60);
-      --header-border: rgba(255, 255, 255, 0.55);
+      --header-bg:     rgba(245, 245, 247, 0.80);
+      --header-border: rgba(0, 0, 0, 0.08);
 
       --text:          #1d1d1f;
       --text-sub:      #6e6e73;
@@ -61,20 +55,19 @@
       --toggle-hover:  rgba(0, 0, 0, 0.11);
       --toggle-text:   rgba(0, 0, 0, 0.45);
 
-      --icon-blue:   rgba(41,  151, 255, 0.16);
-      --icon-green:  rgba(52,  199,  89, 0.16);
-      --icon-purple: rgba(175,  82, 222, 0.16);
-      --icon-orange: rgba(255, 149,   0, 0.16);
-      --icon-teal:   rgba(90,  200, 250, 0.16);
-      --icon-red:    rgba(255,  69,  58, 0.16);
-      --icon-yellow: rgba(255, 214,  10, 0.16);
+      --icon-blue:   #e8f0fe;
+      --icon-green:  #e6f4ea;
+      --icon-purple: #f3e8fd;
+      --icon-orange: #fde8d8;
+      --icon-teal:   #e0f5f5;
+      --icon-red:    #fce8e8;
+      --icon-yellow: #fef7e0;
     }
 
     /* ── Base ── */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 50%, var(--bg-c) 100%);
-      background-attachment: fixed;
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       transition: color 0.3s;
