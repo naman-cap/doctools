@@ -227,6 +227,279 @@
       font-size: 0.78rem;
       color: var(--text-sub);
     }
+
+    /* ══════════════════════════════════════════
+       EASTER EGG STYLES
+    ══════════════════════════════════════════ */
+
+    /* Overlays */
+    #easter-overlay,
+    #success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.74);
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #success-overlay { z-index: 3500; }
+    #easter-overlay.visible,
+    #success-overlay.visible { opacity: 1; }
+
+    /* Popup glass panels */
+    .easter-popup,
+    .success-popup {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 26px;
+      padding: 44px 40px 40px;
+      max-width: 440px;
+      width: 92%;
+      text-align: center;
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 var(--glass-inset);
+      transform: scale(0.86) translateY(24px);
+      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #easter-overlay.visible .easter-popup,
+    #success-overlay.visible .success-popup {
+      transform: scale(1) translateY(0);
+    }
+
+    .easter-popup-emoji,
+    .success-emoji {
+      font-size: 3.4rem;
+      display: block;
+      margin-bottom: 18px;
+      animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);    opacity: 1; }
+    }
+
+    .easter-popup-title,
+    .success-popup h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .easter-popup-msg,
+    .success-popup p {
+      font-size: 0.875rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .easter-popup-btn,
+    .success-popup button {
+      background: var(--accent);
+      border: none;
+      border-radius: 22px;
+      padding: 12px 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .easter-popup-btn:hover,
+    .success-popup button:hover { opacity: 0.85; transform: scale(1.04); }
+    .easter-popup-btn:active,
+    .success-popup button:active { transform: scale(0.96); }
+
+    /* Drop slots (empty grid positions during game) */
+    .drop-slot {
+      border: 2px dashed var(--glass-border);
+      border-radius: 18px;
+      min-height: 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: background 0.18s, border-color 0.18s;
+    }
+
+    .drop-slot.drag-over {
+      background: rgba(41, 151, 255, 0.08);
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .slot-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-sub);
+      opacity: 0.18;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes wrong-shake {
+      0%, 100% { transform: translateX(0);   border-color: var(--glass-border); }
+      15%       { transform: translateX(-11px); border-color: #ff4d4d; }
+      35%       { transform: translateX(10px);  border-color: #ff4d4d; }
+      55%       { transform: translateX(-7px);  border-color: #ff4d4d; }
+      75%       { transform: translateX(6px);   border-color: #ff4d4d; }
+    }
+
+    .drop-slot.wrong-shake {
+      animation: wrong-shake 0.42s ease;
+      border-style: solid;
+    }
+
+    @keyframes hint-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(41, 151, 255, 0); }
+      50%       { box-shadow: 0 0 0 7px rgba(41, 151, 255, 0.4); }
+    }
+
+    .hint-highlight {
+      animation: hint-glow 0.55s ease-in-out 4 !important;
+      border-color: var(--accent) !important;
+      border-style: solid !important;
+      outline: none;
+    }
+
+    /* Correct placement flash */
+    @keyframes correct-flash {
+      0%   { box-shadow: 0 0 0 0 rgba(107, 203, 119, 0.8); }
+      50%  { box-shadow: 0 0 0 10px rgba(107, 203, 119, 0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(107, 203, 119, 0); }
+    }
+
+    .card.just-placed {
+      animation: correct-flash 0.5s ease-out both;
+    }
+
+    /* Scatter area */
+    #scatter-area {
+      margin-top: 42px;
+      padding-bottom: 24px;
+    }
+
+    .scatter-label {
+      text-align: center;
+      font-size: 0.80rem;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    #scatter-pile {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      padding: 22px 18px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      min-height: 130px;
+      align-items: flex-start;
+    }
+
+    /* Pile cards */
+    .pile-card {
+      width: 210px;
+      cursor: grab;
+      border-radius: 18px;
+      transition: transform 0.22s ease, opacity 0.2s;
+      user-select: none;
+    }
+
+    .pile-card:hover:not(.dragging) {
+      transform: translateY(-6px) scale(1.025) !important;
+    }
+
+    .pile-card:active { cursor: grabbing; }
+
+    .pile-card.dragging {
+      opacity: 0.28;
+      cursor: grabbing;
+    }
+
+    /* Progress bar */
+    #game-progress-wrap {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    #game-progress-label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    #game-progress-bar {
+      height: 4px;
+      background: var(--glass-border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    #game-progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* Hint bar */
+    #hint-bar {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    #hint-btn {
+      background: var(--toggle-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 9px 22px;
+      cursor: pointer;
+      color: var(--toggle-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #hint-btn:hover:not(:disabled) {
+      background: var(--toggle-hover);
+      color: var(--text);
+    }
+
+    #hint-btn:disabled {
+      opacity: 0.36;
+      cursor: not-allowed;
+    }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      top: -24px;
+      z-index: 4000;
+      pointer-events: none;
+      animation: confetti-fall linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0px);    opacity: 1; }
+      75%  { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(900deg) translateX(40px); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -314,12 +587,6 @@
   const saved = localStorage.getItem('theme') || 'dark';
   applyTheme(saved);
 
-  btn.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    localStorage.setItem('theme', next);
-  });
-
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     icon.textContent  = theme === 'dark' ? '☀️' : '🌙';
@@ -327,26 +594,413 @@
   }
 
   /* ── 3-D tilt on hover ── */
-  const TILT = 12; // max degrees
+  const TILT = 12;
 
-  document.querySelectorAll('.card').forEach(card => {
+  function attachTilt(card) {
     card.addEventListener('mouseenter', () => {
       card.style.transition = 'box-shadow 0.3s ease, transform 0.12s ease';
     });
-
     card.addEventListener('mousemove', e => {
-      const r  = card.getBoundingClientRect();
-      const x  = (e.clientX - r.left) / r.width  - 0.5;
-      const y  = (e.clientY - r.top)  / r.height - 0.5;
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
       card.style.transform =
         `perspective(700px) rotateY(${x * TILT}deg) rotateX(${y * -TILT}deg) scale(1.04) translateY(-6px)`;
     });
-
     card.addEventListener('mouseleave', () => {
       card.style.transition = 'box-shadow 0.3s ease, transform 0.45s ease';
       card.style.transform  = '';
     });
+  }
+
+  document.querySelectorAll('.card').forEach(attachTilt);
+
+  /* ══════════════════════════════════════════
+     EASTER EGG
+  ══════════════════════════════════════════ */
+
+  let clickTimes      = [];
+  let easterEggActive = false;
+  let correctOrder    = [];   // outerHTML strings of cards in original order
+  let hintsUsed       = 0;
+  let placedCount     = 0;
+  let draggedCard     = null; // the .pile-card wrapper being dragged
+  let autoScrollTimer = null; // for drag-scroll
+
+  /* Auto-scroll the page while dragging near the viewport edges */
+  document.addEventListener('dragover', e => {
+    if (!draggedCard) return;
+    const ZONE  = 130; // px from edge to start scrolling
+    const y     = e.clientY;
+    const vh    = window.innerHeight;
+    clearInterval(autoScrollTimer);
+    if (y < ZONE) {
+      const speed = Math.round(14 * (1 - y / ZONE));
+      autoScrollTimer = setInterval(() => window.scrollBy(0, -speed), 16);
+    } else if (y > vh - ZONE) {
+      const speed = Math.round(14 * (1 - (vh - y) / ZONE));
+      autoScrollTimer = setInterval(() => window.scrollBy(0, speed), 16);
+    }
   });
+  document.addEventListener('dragend', () => {
+    clearInterval(autoScrollTimer);
+    autoScrollTimer = null;
+  });
+
+  /* Theme toggle — also listens for spam clicks */
+  btn.addEventListener('click', () => {
+    if (easterEggActive) return;
+
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('theme', next);
+
+    const now = Date.now();
+    clickTimes = clickTimes.filter(t => now - t < 2000);
+    clickTimes.push(now);
+
+    if (clickTimes.length >= 7) triggerEasterEgg();
+  });
+
+  /* ── Step 1: Trigger ── */
+  function triggerEasterEgg() {
+    easterEggActive = true;
+    clickTimes = [];
+
+    const grid  = document.querySelector('.grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+
+    // Capture original HTML
+    correctOrder = cards.map(c => c.outerHTML);
+
+    // Snapshot bounding rects before any DOM changes
+    const rects = cards.map(c => c.getBoundingClientRect());
+
+    // Create fixed-position clones for the fall animation
+    const fallers = cards.map((card, i) => {
+      const rect  = rects[i];
+      const clone = card.cloneNode(true);
+      const delay = i * 0.072;
+      const dur   = 0.52 + Math.random() * 0.32;
+      const rot   = (Math.random() - 0.5) * 220;
+      const dx    = (Math.random() - 0.5) * 160;
+
+      clone.style.cssText = `
+        position: fixed !important;
+        left: ${rect.left}px;
+        top: ${rect.top}px;
+        width: ${rect.width}px;
+        height: ${rect.height}px;
+        z-index: 1500;
+        pointer-events: none;
+        margin: 0;
+        transform-origin: center center;
+      `;
+      document.body.appendChild(clone);
+      return { clone, rect, delay, dur, rot, dx };
+    });
+
+    // Clear grid so layout collapses (clones are visually covering the cards)
+    grid.innerHTML = '';
+
+    // On next two frames, start the fall transitions
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fallers.forEach(({ clone, rect, delay, dur, rot, dx }) => {
+          clone.style.transition = `
+            transform ${dur}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s,
+            opacity   0.22s ease ${delay + dur - 0.18}s
+          `;
+          clone.style.transform = `
+            translateY(${window.innerHeight - rect.top + 100}px)
+            translateX(${dx}px)
+            rotate(${rot}deg)
+          `;
+          clone.style.opacity = '0';
+        });
+      });
+    });
+
+    // Remove clones after animation, then show popup
+    const maxDur = fallers.reduce((m, f) => Math.max(m, f.delay + f.dur + 0.4), 0);
+    setTimeout(() => {
+      fallers.forEach(({ clone }) => clone.remove());
+      showBrokenPopup();
+    }, maxDur * 1000);
+  }
+
+  /* ── Step 2: Broken popup ── */
+  function showBrokenPopup() {
+    const overlay = document.createElement('div');
+    overlay.id = 'easter-overlay';
+    overlay.innerHTML = `
+      <div class="easter-popup">
+        <span class="easter-popup-emoji">💥</span>
+        <h2 class="easter-popup-title">Oh no! You broke the site.</h2>
+        <p class="easter-popup-msg">
+          Fix it by dragging all the tiles back<br>in the same order they were originally.
+        </p>
+        <button class="easter-popup-btn" id="start-fix-btn">Let me fix it! 🔧</button>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('visible')));
+
+    document.getElementById('start-fix-btn').addEventListener('click', () => {
+      overlay.classList.remove('visible');
+      setTimeout(() => { overlay.remove(); setupMiniGame(); }, 340);
+    });
+  }
+
+  /* ── Step 3: Build the mini-game ── */
+  function setupMiniGame() {
+    hintsUsed   = 0;
+    placedCount = 0;
+
+    const grid = document.querySelector('.grid');
+    const main = document.querySelector('main');
+
+    // Scroll to top so player sees the grid
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Create empty drop slots
+    for (let i = 0; i < correctOrder.length; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'drop-slot';
+      slot.dataset.slotIndex = i;
+      slot.innerHTML = `<span class="slot-number">${i + 1}</span>`;
+
+      slot.addEventListener('dragover', e => {
+        e.preventDefault();
+        slot.classList.add('drag-over');
+      });
+      slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+      slot.addEventListener('drop',      e => handleDrop(e, slot));
+
+      grid.appendChild(slot);
+    }
+
+    // Progress indicator
+    const progressWrap = document.createElement('div');
+    progressWrap.id = 'game-progress-wrap';
+    progressWrap.innerHTML = `
+      <div id="game-progress-label">0 / ${correctOrder.length} tiles placed</div>
+      <div id="game-progress-bar"><div id="game-progress-fill"></div></div>
+    `;
+    main.appendChild(progressWrap);
+
+    // Scatter area
+    const scatterArea = document.createElement('div');
+    scatterArea.id = 'scatter-area';
+    scatterArea.innerHTML = `
+      <p class="scatter-label">↑ Drag each tile back to its numbered slot above</p>
+      <div id="scatter-pile"></div>
+    `;
+    main.appendChild(scatterArea);
+
+    // Hint bar
+    const hintBar = document.createElement('div');
+    hintBar.id = 'hint-bar';
+    hintBar.innerHTML = `
+      <button id="hint-btn">💡 Hint (<span id="hints-left">3</span> remaining)</button>
+    `;
+    main.appendChild(hintBar);
+
+    // Shuffle and insert pile cards
+    const pile    = document.getElementById('scatter-pile');
+    const indices = [...correctOrder.keys()].sort(() => Math.random() - 0.5);
+    const rotBase = [-5, -3, -1, 0, 1, 3, 5, -4, 2];
+
+    indices.forEach((cardIndex, pos) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'pile-card';
+      wrapper.dataset.cardIndex = cardIndex;
+      wrapper.draggable = true;
+      wrapper.style.transform = `rotate(${rotBase[pos % rotBase.length]}deg)`;
+      wrapper.innerHTML = correctOrder[cardIndex];
+
+      // Prevent the inner anchor from interfering with drag / navigation
+      const inner = wrapper.querySelector('a.card');
+      if (inner) {
+        inner.setAttribute('draggable', 'false');
+        inner.style.pointerEvents = 'none';
+      }
+
+      wrapper.addEventListener('dragstart', e => {
+        draggedCard = wrapper;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', String(cardIndex));
+        setTimeout(() => wrapper.classList.add('dragging'), 0);
+      });
+
+      wrapper.addEventListener('dragend', () => {
+        wrapper.classList.remove('dragging');
+      });
+
+      pile.appendChild(wrapper);
+    });
+
+    document.getElementById('hint-btn').addEventListener('click', showHint);
+  }
+
+  /* ── Drop handler ── */
+  function handleDrop(e, slot) {
+    e.preventDefault();
+    slot.classList.remove('drag-over');
+    if (!draggedCard) return;
+
+    const slotIndex = parseInt(slot.dataset.slotIndex, 10);
+    const cardIndex = parseInt(draggedCard.dataset.cardIndex, 10);
+
+    if (cardIndex === slotIndex) {
+      // ✅ Correct placement
+      const temp = document.createElement('div');
+      temp.innerHTML = correctOrder[cardIndex];
+      const cardEl = temp.firstElementChild;
+
+      // Disable navigation while game is active
+      cardEl.removeAttribute('href');
+      cardEl.setAttribute('draggable', 'false');
+      cardEl.style.cursor = 'default';
+
+      slot.replaceWith(cardEl);
+      cardEl.classList.add('just-placed');
+      setTimeout(() => cardEl.classList.remove('just-placed'), 600);
+
+      attachTilt(cardEl);
+      draggedCard.remove();
+      draggedCard = null;
+
+      placedCount++;
+      updateProgress();
+
+      if (placedCount === correctOrder.length) {
+        setTimeout(showWin, 700);
+      }
+    } else {
+      // ❌ Wrong slot — shake and stay in pile
+      slot.classList.add('wrong-shake');
+      setTimeout(() => slot.classList.remove('wrong-shake'), 450);
+      draggedCard = null;
+    }
+  }
+
+  /* ── Progress bar ── */
+  function updateProgress() {
+    const lbl  = document.getElementById('game-progress-label');
+    const fill = document.getElementById('game-progress-fill');
+    const pct  = (placedCount / correctOrder.length) * 100;
+    if (lbl)  lbl.textContent = `${placedCount} / ${correctOrder.length} tiles placed`;
+    if (fill) fill.style.width = pct + '%';
+  }
+
+  /* ── Hint system ── */
+  function showHint() {
+    if (hintsUsed >= 3) return;
+
+    // Find first empty slot
+    const emptySlot = document.querySelector('.grid .drop-slot');
+    if (!emptySlot) return;
+
+    const slotIndex  = parseInt(emptySlot.dataset.slotIndex, 10);
+    const targetCard = document.querySelector(`.pile-card[data-card-index="${slotIndex}"]`);
+
+    if (targetCard) {
+      targetCard.classList.add('hint-highlight');
+      emptySlot.classList.add('hint-highlight');
+      setTimeout(() => {
+        targetCard.classList.remove('hint-highlight');
+        emptySlot.classList.remove('hint-highlight');
+      }, 2200);
+    }
+
+    hintsUsed++;
+    const hintsLeft = document.getElementById('hints-left');
+    if (hintsLeft) hintsLeft.textContent = Math.max(0, 3 - hintsUsed);
+
+    if (hintsUsed >= 3) {
+      const hintBtn = document.getElementById('hint-btn');
+      if (hintBtn) {
+        hintBtn.disabled = true;
+        hintBtn.innerHTML = '💡 No hints remaining';
+      }
+    }
+  }
+
+  /* ── Win sequence ── */
+  function showWin() {
+    launchConfetti();
+
+    setTimeout(() => {
+      const overlay = document.createElement('div');
+      overlay.id = 'success-overlay';
+      overlay.innerHTML = `
+        <div class="success-popup">
+          <span class="success-emoji">🎉</span>
+          <h2>You fixed it!</h2>
+          <p>The site is back to normal Try not to break it again!</p>
+          <button id="success-close-btn">Awesome! 🙌</button>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+
+      requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('visible')));
+
+      document.getElementById('success-close-btn').addEventListener('click', () => {
+        overlay.classList.remove('visible');
+        setTimeout(() => { overlay.remove(); resetGame(); }, 350);
+      });
+    }, 1800);
+  }
+
+  /* ── Confetti launcher ── */
+  function launchConfetti() {
+    const COLORS = ['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#cc5de8','#f06595','#74c0fc'];
+    const COUNT  = 180;
+
+    for (let i = 0; i < COUNT; i++) {
+      const piece = document.createElement('div');
+      const size  = 7 + Math.random() * 10;
+      const delay = Math.random() * 2.8;
+      const dur   = 2.6 + Math.random() * 2.2;
+      const isRect = Math.random() > 0.45;
+
+      piece.className = 'confetti-piece';
+      piece.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        width: ${size}px;
+        height: ${isRect ? size * 0.4 : size}px;
+        background: ${COLORS[Math.floor(Math.random() * COLORS.length)]};
+        border-radius: ${isRect ? '2px' : '50%'};
+        animation-delay: ${delay}s;
+        animation-duration: ${dur}s;
+      `;
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), (delay + dur + 0.5) * 1000);
+    }
+  }
+
+  /* ── Reset game ── */
+  function resetGame() {
+    ['scatter-area', 'hint-bar', 'game-progress-wrap'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+
+    // Restore original cards
+    const grid = document.querySelector('.grid');
+    grid.innerHTML = correctOrder.join('');
+    grid.querySelectorAll('.card').forEach(attachTilt);
+
+    // Reset state
+    easterEggActive = false;
+    hintsUsed       = 0;
+    placedCount     = 0;
+    correctOrder    = [];
+    clickTimes      = [];
+    draggedCard     = null;
+  }
 </script>
 
 </body>
